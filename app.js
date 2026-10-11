@@ -1,6 +1,7 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let D,tab='home',sub='all',bf='all',q='';
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const LISTS=['characters','locations','weapons','vehicles'];
 const SUBKEY={characters:'tier',locations:'region',weapons:'type',vehicles:'type'};
 const OBJ={weapons:1,vehicles:1};
@@ -12,9 +13,11 @@ const pic=(img,name)=>img?`<img src="${img}" alt="${esc(name)}" loading="lazy">`
 const badge=b=>`<span class="b ${b}">${b}</span>`;
 function subLabel(x,t=tab){if(t==='characters')return x.tier;if(t==='locations')return x.region;return x.type+(x.unnamed?' · name TBC':'')}
 function filtered(){return D[tab].filter(x=>(sub==='all'||x[SUBKEY[tab]]===sub)&&(bf==='all'||x.badge===bf)&&(!q||JSON.stringify(x).toLowerCase().includes(q)))}
-function setTab(t,noScroll){tab=t;sub='all';$$('#nav [data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));render();
-  const y=$('.postcard').offsetHeight-(innerWidth>700?0:0);if(!noScroll&&(scrollY>y||innerWidth<=700))scrollTo({top:y,behavior:'smooth'});history.replaceState(null,'','#'+t)}
+function setTab(t,noScroll){tab=t;sub='all';$$('#nav [data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  render.stage=true;render();
+  const mark=$('.marquee');const y=mark?mark.offsetTop:$('.postcard').offsetHeight;if(!noScroll&&(scrollY>y||innerWidth<=700))scrollTo({top:y,behavior:reduceMotion?'auto':'smooth'});history.replaceState(null,'','#'+t)}
 function render(){
+  render._pendingStage=!!render.stage;render.stage=false;
   const isList=LISTS.includes(tab);$('#controls').hidden=!(isList||tab==='gallery');
   if(isList){const vals=[...new Set(D[tab].map(x=>x[SUBKEY[tab]]))];
     $('#subf').innerHTML=['all',...vals].map(v=>`<button data-s="${esc(v)}" class="${v===sub?'on':''}">${esc(v)}</button>`).join('');$('#badgef').style.display=''}
@@ -33,8 +36,8 @@ function home(m){$('#cnt').textContent='';
   const feat=D.locations.filter(l=>l.featured);const g=D.gallery;const hero=g.find(x=>/Vice City/.test(x.tag))||g[0];
   m.innerHTML=`<div class="loading"><img src="${hero.img}" alt=""><div class="cap"><h3>Vice City, USA.</h3><p>Lucia, Jason and the State of Leonida: everything Rockstar has officially shown, tagged CONFIRMED vs RUMOR.</p></div></div>
   <h2 class="sec-title">Meet the Players</h2><div class="grid">${D.characters.filter(c=>c.tier!=='Supporting'&&c.tier!=='Group / Band').map(x=>`<button class="card" data-tab2="characters" data-id="${x.id}"><div class="pic">${pic(x.img,x.name)}</div>${badge(x.badge)}<div class="meta"><div class="nm">${esc(x.name)}</div><div class="sub">${esc(x.tier)}</div></div></button>`).join('')}</div>
-  <h2 class="sec-title">Explore Leonida</h2><div class="tiles">${feat.map(l=>`<button class="tile" data-tab2="locations" data-id="${l.id}"><img src="${(l.gallery.find(x=>x.img.includes('/a/'))||l.gallery[0]||{}).img||l.img}" alt="" loading="lazy"><span>${esc(l.name)}</span></button>`).join('')}</div>
-  <h2 class="sec-title">By the Numbers</h2><div class="facts">${[['Characters',D.characters.length],['Locations',D.locations.length],['Weapons',D.weapons.length],['Vehicles',D.vehicles.length],['Official trailers',D.trailers.length],['Official images',D.gallery.length]].map(([a,b])=>`<div class="fact"><b>${a}</b><span style="font-family:Anton;font-size:30px">${b}</span></div>`).join('')}</div>`}
+  <h2 class="sec-title">Explore Leonida</h2><div class="cruise"><div class="cruise-label"><span>Cruise the coast</span><span>Slide sideways</span></div><div class="tiles">${feat.map(l=>`<button class="tile" data-tab2="locations" data-id="${l.id}"><img src="${(l.gallery.find(x=>x.img.includes('/a/'))||l.gallery[0]||{}).img||l.img}" alt="" loading="lazy"><span>${esc(l.name)}</span></button>`).join('')}</div></div>
+  <h2 class="sec-title">By the Numbers</h2><div class="facts">${[['Characters',D.characters.length],['Locations',D.locations.length],['Weapons',D.weapons.length],['Vehicles',D.vehicles.length],['Official trailers',D.trailers.length],['Official images',D.gallery.length]].map(([a,b])=>`<div class="fact stat"><b>${a}</b><span class="num">${b}</span></div>`).join('')}</div>`}
 function timeline(m){const now=new Date();
   m.innerHTML=`<h2 class="sec-title">Road to Release</h2><p class="note">Official Rockstar / Take-Two milestones. Items tagged RUMOR are leaks or unofficial statements.</p><div class="tl">${D.timeline.map(e=>`<div class="ev ${new Date(e.date)>now?'future':''}"><div class="d">${new Date(e.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} ${badge(e.badge)}</div><h4>${esc(e.title)}</h4><p>${esc(e.text)}</p></div>`).join('')}</div>`}
 function trailers(m){m.innerHTML=`<h2 class="sec-title">Official Trailers</h2><p class="note">Embedded from Rockstar Games' official YouTube channel. Click to load (privacy-enhanced mode; nothing autoplays until you click).</p><div class="vids">${D.trailers.map(t=>`<div class="vid"><button class="yt" data-yt="${t.id}" aria-label="Play ${esc(t.title)}"><img src="https://i.ytimg.com/vi/${t.id}/hqdefault.jpg" alt="" loading="lazy"><span class="play">▶</span></button><div class="vm"><h4>${esc(t.title)}</h4>${badge('CONFIRMED')} <span class="note">${t.date}</span><p>${esc(t.note)}</p></div></div>`).join('')}</div>`}
@@ -77,5 +80,37 @@ document.addEventListener('click',e=>{
 addEventListener('keydown',e=>{if(e.key==='Escape'){const l=$('.lb');l?l.remove():close()}});
 $('#q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();render()});
 fetch('data.json').then(r=>r.json()).then(d=>{D=d;$('#statusTxt').textContent=d.status.text;countdown();
-  const [t,id]=location.hash.slice(1).split('/');if(t&&(LISTS.includes(t)||['timeline','trailers','gallery','intel','home'].includes(t)))setTab(t);else render();if(id)open(t,id)});
+  const [t,id]=location.hash.slice(1).split('/');if(t&&(LISTS.includes(t)||['timeline','trailers','gallery','intel','home'].includes(t)))setTab(t);else{render.stage=true;render()}if(id)open(t,id)});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+(function(){
+  const main=$('#main'),nav=$('#nav'),tube=$('.scroll-tube i');
+  const REVEAL='.card,.tile,.ev,.vid,.intel-sec,.gal button,.stat';
+  if(!reduceMotion){
+    document.documentElement.classList.add('js-reveal');
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target)});
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    const arm=(root,immediate)=>root.querySelectorAll(REVEAL).forEach((el,i)=>{
+      if(immediate){el.classList.add('in');return}
+      el.style.setProperty('--d',(i%5)*50+'ms');io.observe(el);
+    });
+    new MutationObserver(()=>{
+      const stage=render._pendingStage;render._pendingStage=false;
+      if(stage){main.classList.remove('stage-in');void main.offsetWidth;main.classList.add('stage-in')}
+      arm(main,!stage);
+    }).observe(main,{childList:true});
+    let ticking=false;
+    const onScroll=()=>{
+      if(ticking)return;ticking=true;
+      requestAnimationFrame(()=>{
+        document.documentElement.style.setProperty('--py',Math.min(scrollY,640)+'px');
+        nav.classList.toggle('is-scrolled',scrollY>24);
+        const max=document.documentElement.scrollHeight-innerHeight;
+        if(tube)tube.style.transform=`scaleY(${max>0?Math.min(1,scrollY/max):0})`;
+        ticking=false;
+      });
+    };
+    addEventListener('scroll',onScroll,{passive:true});
+    onScroll();
+  }
+})();
