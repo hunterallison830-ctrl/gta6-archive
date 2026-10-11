@@ -20,7 +20,8 @@ function render(){
   render._pendingStage=!!render.stage;render.stage=false;
   const isList=LISTS.includes(tab);$('#controls').hidden=!(isList||tab==='gallery');
   if(isList){const vals=[...new Set(D[tab].map(x=>x[SUBKEY[tab]]))];
-    $('#subf').innerHTML=['all',...vals].map(v=>`<button data-s="${esc(v)}" class="${v===sub?'on':''}">${esc(v)}</button>`).join('');$('#badgef').style.display=''}
+    const any={characters:'Any tier',locations:'Any region',weapons:'Any type',vehicles:'Any type'}[tab];
+    $('#subf').innerHTML=['all',...vals].map(v=>`<button data-s="${esc(v)}" class="${v===sub?'on':''}">${esc(v==='all'?any:v)}</button>`).join('');$('#badgef').style.display=''}
   else{$('#subf').innerHTML='';$('#badgef').style.display='none'}
   const m=$('#main');
   if(tab==='home')return home(m);
@@ -41,7 +42,7 @@ function home(m){$('#cnt').textContent='';
 function timeline(m){const now=new Date();
   m.innerHTML=`<h2 class="sec-title">Road to Release</h2><p class="note">Official Rockstar / Take-Two milestones. Items tagged RUMOR are leaks or unofficial statements.</p><div class="tl">${D.timeline.map(e=>`<div class="ev ${new Date(e.date)>now?'future':''}"><div class="d">${new Date(e.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} ${badge(e.badge)}</div><h4>${esc(e.title)}</h4><p>${esc(e.text)}</p></div>`).join('')}</div>`}
 function trailers(m){m.innerHTML=`<h2 class="sec-title">Official Trailers</h2><p class="note">Embedded from Rockstar Games' official YouTube channel. Click to load (privacy-enhanced mode; nothing autoplays until you click).</p><div class="vids">${D.trailers.map(t=>`<div class="vid"><button class="yt" data-yt="${t.id}" aria-label="Play ${esc(t.title)}"><img src="https://i.ytimg.com/vi/${t.id}/hqdefault.jpg" alt="" loading="lazy"><span class="play">▶</span></button><div class="vm"><h4>${esc(t.title)}</h4>${badge('CONFIRMED')} <span class="note">${t.date}</span><p>${esc(t.note)}</p></div></div>`).join('')}</div>`}
-function gallery(m){const tags=[...new Set(D.gallery.map(g=>g.tag))];$('#subf').innerHTML=['all',...tags].map(v=>`<button data-s="${esc(v)}" class="${v===sub?'on':''}">${esc(v)}</button>`).join('');
+function gallery(m){const tags=[...new Set(D.gallery.map(g=>g.tag))];$('#subf').innerHTML=['all',...tags].map(v=>`<button data-s="${esc(v)}" class="${v===sub?'on':''}">${esc(v==='all'?'Any tag':v)}</button>`).join('');
   const L=D.gallery.filter(g=>(sub==='all'||g.tag===sub)&&(!q||g.tag.toLowerCase().includes(q)));$('#cnt').textContent=`${L.length} OFFICIAL IMAGES`;
   m.innerHTML=`<h2 class="sec-title">Official Screenshots</h2><div class="gal">${L.map(g=>`<button data-full="${g.img}"><img src="${g.img}" alt="${esc(g.tag)}" loading="lazy"><span>${esc(g.tag)} · ${esc(g.kind)}</span></button>`).join('')}</div>`}
 function intel(m){m.innerHTML=`<h2 class="sec-title">Field Intel</h2><p class="note">What Rockstar has officially shown about how GTA VI plays, condensed from the wiki. Leak-sourced claims are removed.</p>${D.intel.map(s=>`<div class="intel-sec"><h3>${esc(s.h)}</h3>${s.p.map(p=>`<p>${p.badge==='RUMOR'?badge('RUMOR')+' ':''}${esc(p.t)}</p>`).join('')}</div>`).join('')}`}
@@ -84,7 +85,7 @@ fetch('data.json').then(r=>r.json()).then(d=>{D=d;$('#statusTxt').textContent=d.
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 (function(){
   const main=$('#main'),nav=$('#nav'),tube=$('.scroll-tube i');
-  const REVEAL='.card,.tile,.ev,.vid,.intel-sec,.gal button,.stat';
+  const REVEAL='.card,.ev,.vid,.intel-sec,.gal button,.stat';
   if(!reduceMotion){
     document.documentElement.classList.add('js-reveal');
     const io=new IntersectionObserver(entries=>{
