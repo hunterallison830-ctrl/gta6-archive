@@ -2,21 +2,120 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>LEONIDA FILES // GTA VI Fan Archive</title>
 <meta name="description" content="Unofficial fan archive of Grand Theft Auto VI: characters, weapons, vehicles, Leonida locations, trailers and the official reveal timeline.">
-<meta name="theme-color" content="#ff4f8b"><link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ff2d95"><link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Leonida Files"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Yellowtail&family=Barlow+Condensed:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body>
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmo-sky"></div>
+  <div class="atmo-stars"></div>
+  <div class="atmo-grid"></div>
+  <div class="vignette"></div>
+</div>
+<div class="scroll-tube" aria-hidden="true"><i></i></div>
 <header class="postcard">
-  <div class="sky"></div><div class="sun"></div><div class="palms"><span>🌴</span><span>🌴</span></div>
+  <div class="sky"></div>
+  <div class="sun-halo"></div>
+  <div class="sun"></div>
+  <div class="ocean"></div>
+  <div class="glint"></div>
+  <svg class="skyline" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <g fill="#140818">
+      <rect x="0" y="150" width="80" height="110"/>
+      <rect x="88" y="98" width="48" height="162"/>
+      <rect x="98" y="74" width="28" height="28"/>
+      <rect x="148" y="128" width="120" height="132"/>
+      <rect x="278" y="64" width="42" height="196"/>
+      <rect x="290" y="36" width="18" height="32"/>
+      <polygon points="330,168 392,86 454,168 454,260 330,260"/>
+      <rect x="466" y="112" width="150" height="148"/>
+      <rect x="628" y="42" width="36" height="218"/>
+      <rect x="638" y="14" width="16" height="32"/>
+      <rect x="676" y="124" width="100" height="136"/>
+      <rect x="788" y="86" width="64" height="174"/>
+      <rect x="864" y="146" width="170" height="114"/>
+      <rect x="1046" y="58" width="34" height="202"/>
+      <rect x="1092" y="108" width="130" height="152"/>
+      <rect x="1234" y="78" width="46" height="182"/>
+      <rect x="1290" y="136" width="150" height="124"/>
+    </g>
+    <g fill="#ffd38a" opacity=".8">
+      <rect x="100" y="112" width="5" height="7"/><rect x="112" y="112" width="5" height="7"/>
+      <rect x="100" y="128" width="5" height="7"/><rect x="112" y="128" width="5" height="7"/>
+      <rect x="100" y="144" width="5" height="7"/><rect x="112" y="144" width="5" height="7"/>
+      <rect x="292" y="80" width="5" height="7"/><rect x="292" y="98" width="5" height="7"/><rect x="292" y="116" width="5" height="7"/>
+      <rect x="292" y="134" width="5" height="7"/><rect x="304" y="98" width="5" height="7"/><rect x="304" y="116" width="5" height="7"/>
+      <rect x="486" y="132" width="6" height="8"/><rect x="502" y="132" width="6" height="8"/><rect x="518" y="132" width="6" height="8"/>
+      <rect x="486" y="150" width="6" height="8"/><rect x="502" y="150" width="6" height="8"/><rect x="518" y="150" width="6" height="8"/>
+      <rect x="560" y="132" width="6" height="8"/><rect x="576" y="132" width="6" height="8"/>
+      <rect x="560" y="150" width="6" height="8"/><rect x="576" y="150" width="6" height="8"/>
+      <rect x="636" y="70" width="5" height="8"/><rect x="648" y="70" width="5" height="8"/>
+      <rect x="636" y="90" width="5" height="8"/><rect x="648" y="90" width="5" height="8"/>
+      <rect x="636" y="110" width="5" height="8"/><rect x="648" y="110" width="5" height="8"/>
+      <rect x="636" y="130" width="5" height="8"/><rect x="648" y="130" width="5" height="8"/>
+      <rect x="804" y="108" width="6" height="8"/><rect x="820" y="108" width="6" height="8"/>
+      <rect x="804" y="126" width="6" height="8"/><rect x="820" y="126" width="6" height="8"/>
+      <rect x="804" y="144" width="6" height="8"/><rect x="820" y="144" width="6" height="8"/>
+      <rect x="1054" y="84" width="5" height="8"/><rect x="1066" y="84" width="5" height="8"/>
+      <rect x="1054" y="104" width="5" height="8"/><rect x="1066" y="104" width="5" height="8"/>
+      <rect x="1054" y="124" width="5" height="8"/><rect x="1066" y="124" width="5" height="8"/>
+      <rect x="1246" y="100" width="5" height="8"/><rect x="1258" y="100" width="5" height="8"/>
+      <rect x="1246" y="120" width="5" height="8"/><rect x="1258" y="120" width="5" height="8"/>
+      <rect x="1246" y="140" width="5" height="8"/><rect x="1258" y="140" width="5" height="8"/>
+    </g>
+    <g>
+      <rect class="sign-pink" x="168" y="156" width="52" height="7"/>
+      <rect class="sign-teal" x="500" y="168" width="78" height="7"/>
+      <rect class="sign-gold" x="700" y="150" width="46" height="7"/>
+      <rect class="sign-pink" x="1112" y="136" width="68" height="7"/>
+      <rect class="sign-teal" x="900" y="170" width="58" height="7"/>
+    </g>
+    <circle class="beacon" cx="646" cy="10" r="4"/>
+  </svg>
+  <div class="palms" aria-hidden="true">
+    <svg class="palm" viewBox="0 0 200 400">
+      <path fill="#120614" d="M108 400c-8-48-10-96-2-142 6-34 4-62-8-96-6-18-8-36 0-58 3 22 12 38 20 52 14 24 16 52 12 92-6 48-8 100-4 152h-18z"/>
+      <path fill="#0c0412" d="M102 118c40-4 74 12 90 26-38 2-70-8-90-26z"/>
+      <path fill="#0c0412" d="M94 114C54 98 18 108 0 126c34 12 66 10 94-12z"/>
+      <path fill="#0c0412" d="M106 108c34-30 68-38 90-30-16 26-46 38-90 30z"/>
+      <path fill="#0c0412" d="M90 104C56 74 20 76 0 92c24 20 56 22 90 12z"/>
+      <path fill="#0c0412" d="M108 100c20-40 44-62 68-70-18 24-40 48-68 70z"/>
+      <path fill="#0c0412" d="M88 98C64 60 34 36 12 26c10 30 36 50 76 72z"/>
+      <path fill="#0c0412" d="M100 92c-2-36-18-62-38-76 20 16 34 46 38 76z"/>
+      <path fill="#0c0412" d="M112 90c10-34 32-56 54-64-20 14-40 40-54 64z"/>
+    </svg>
+    <svg class="palm flip" viewBox="0 0 200 400">
+      <path fill="#120614" d="M108 400c-8-48-10-96-2-142 6-34 4-62-8-96-6-18-8-36 0-58 3 22 12 38 20 52 14 24 16 52 12 92-6 48-8 100-4 152h-18z"/>
+      <path fill="#0c0412" d="M102 118c40-4 74 12 90 26-38 2-70-8-90-26z"/>
+      <path fill="#0c0412" d="M94 114C54 98 18 108 0 126c34 12 66 10 94-12z"/>
+      <path fill="#0c0412" d="M106 108c34-30 68-38 90-30-16 26-46 38-90 30z"/>
+      <path fill="#0c0412" d="M90 104C56 74 20 76 0 92c24 20 56 22 90 12z"/>
+      <path fill="#0c0412" d="M108 100c20-40 44-62 68-70-18 24-40 48-68 70z"/>
+      <path fill="#0c0412" d="M88 98C64 60 34 36 12 26c10 30 36 50 76 72z"/>
+      <path fill="#0c0412" d="M100 92c-2-36-18-62-38-76 20 16 34 46 38 76z"/>
+      <path fill="#0c0412" d="M112 90c10-34 32-56 54-64-20 14-40 40-54 64z"/>
+    </svg>
+  </div>
   <div class="pc-inner">
         <h1 class="vi-title"><span class="welcome">Welcome to</span><span class="leonida">LEONIDA</span></h1>
     <p class="tag">THE UNOFFICIAL GRAND THEFT AUTO VI ARCHIVE</p>
     <div class="status" id="status"><b>STATUS</b> <span id="statusTxt">…</span><div class="count" id="countdown"></div></div>
   </div>
   <div class="stamp-post">VICE CITY<br>LEONIDA<br>★</div>
+  <div class="grain" aria-hidden="true"></div>
 </header>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-seq">
+      <span>Now Entering</span><b>★</b><span>Ocean Beach</span><b>★</b><span>Vice City</span><b>★</b><span>Little Cuba</span><b>★</b><span>Port Gellhorn</span><b>★</b><span>Ambrosia</span><b>★</b><span>Leonida Keys</span><b>★</b><span>Downtown</span><b>★</b><span>Washington Beach</span><b>★</b><span>Grass Rivers</span><b>★</b><span>Vice Beach</span><b>★</b><span>Peacock Bay</span><b>★</b><span>South Vice</span><b>★</b><span>Tequesta</span><b>★</b><span>Key Lento</span><b>★</b>
+    </div>
+    <div class="marquee-seq">
+      <span>Now Entering</span><b>★</b><span>Ocean Beach</span><b>★</b><span>Vice City</span><b>★</b><span>Little Cuba</span><b>★</b><span>Port Gellhorn</span><b>★</b><span>Ambrosia</span><b>★</b><span>Leonida Keys</span><b>★</b><span>Downtown</span><b>★</b><span>Washington Beach</span><b>★</b><span>Grass Rivers</span><b>★</b><span>Vice Beach</span><b>★</b><span>Peacock Bay</span><b>★</b><span>South Vice</span><b>★</b><span>Tequesta</span><b>★</b><span>Key Lento</span><b>★</b>
+    </div>
+  </div>
+</div>
 <nav class="phone" id="nav" aria-label="Sections">
   <div class="phone-top"><span id="clock">9:41</span><span>LifeInvader 5G ▮▮▮</span></div>
   <div class="apps">
@@ -40,6 +139,7 @@
 <main id="main"></main>
 <div id="modal" class="modal" hidden><article class="dossier" role="dialog" aria-modal="true"><button class="x" aria-label="Close">✕</button><div id="mbody"></div></article></div>
 <footer>
+  <p class="signoff">see you in Vice City</p>
   <p><b>Unofficial, non-commercial fan site.</b> Not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. <i>Grand Theft Auto VI</i>, its characters, logos, artwork, screenshots and trailers © Rockstar Games / Take-Two Interactive.</p>
   <p>Official copy quoted from <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">rockstargames.com/VI</a>; trailers embedded from Rockstar's official YouTube channel. Other text and images condensed from the <a href="https://gta.fandom.com" target="_blank" rel="noopener">Grand Theft Auto Wiki</a> (Fandom, CC BY-SA). <span class="b CONFIRMED">CONFIRMED</span> = seen in official Rockstar material. <span class="b RUMOR">RUMOR</span> = only from leaks or unofficial statements. Leak-sourced paragraphs are hidden from dossiers.</p>
 </footer>
